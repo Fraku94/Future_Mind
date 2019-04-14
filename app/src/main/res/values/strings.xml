@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Future_Mind</string>
+    <string name="Description">Opis</string>
+    <string name="title">Tytuł</string>
+    <string name="ModificationDate">Data</string>
+</resources>
