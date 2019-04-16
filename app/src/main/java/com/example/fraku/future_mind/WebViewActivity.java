@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 public class WebViewActivity extends AppCompatActivity {
 
@@ -27,21 +28,19 @@ public class WebViewActivity extends AppCompatActivity {
 
 
         WebViewUrl = getIntent().getExtras().getString("webUrl");
-        Id = getIntent().getExtras().getString("Id");
 
-
-        Cursor resSave = databaseData.getData(Id);
 
         webView.clearCache(true);
         webView.clearHistory();
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         webView.loadUrl(WebViewUrl);
-
-
-
+        webView.setWebViewClient(new WebViewClient() {
+            public boolean shouldOverrideUrlLoading(WebView viewx, String urlx) {
+                viewx.loadUrl(urlx);
+                return false;
+            }
+        });
 
     }
 

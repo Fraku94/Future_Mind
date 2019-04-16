@@ -3,6 +3,7 @@ package com.example.fraku.future_mind;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+
+
 
 import java.util.List;
 
@@ -42,7 +45,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(final DataViewHolder holder, final int position) {
+    public void onBindViewHolder(final DataViewHolder holder,final int position)  {
 
 
         holder.mId = DataList.get(position).getOrderId();
@@ -51,12 +54,11 @@ public class DataAdapter extends RecyclerView.Adapter<DataViewHolder>{
         holder.mDescription.setText(DataList.get(position).getDescription());
         holder.mModificationDate.setText(DataList.get(position).getModificationDate());
 
+        Log.e("get(position)", "get(position):   " + DataList.get(position).getImageUrl());
+        Log.e("get(position)", "get(DataList.get(position).getTitle()):   " + DataList.get(position).getTitle());
 
-
-//        Glide.with(context).load(DataList.get(position).getImageUrl()).
-//                placeholder(R.mipmap.default_profile).fitCenter().into(holder.mImage);
-
-        Glide.with(context)
+       // holder.mImage.setImageBitmap(new RetrieveFeedTask(url).execute());
+       Glide.with(context)
                 .load(DataList.get(position).getImageUrl())
                 .asBitmap()
                 .into(new SimpleTarget<Bitmap>(100,100) {
@@ -68,6 +70,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataViewHolder>{
                     }
                 });
 
+
     }
 
     @Override
@@ -76,39 +79,5 @@ public class DataAdapter extends RecyclerView.Adapter<DataViewHolder>{
     }
 
 
-//    private String saveImage(Bitmap image, String IdQue) {
-//        String savedImagePath = null;
-//
-//        String imageFileName = "JPEG_" + IdQue + ".jpg";
-//        File storageDir = new File(            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-//                + "/Quiz");
-//        boolean success = true;
-//        if (!storageDir.exists()) {
-//            success = storageDir.mkdirs();
-//        }
-//        if (success) {
-//            File imageFile = new File(storageDir, imageFileName);
-//            savedImagePath = imageFile.getAbsolutePath();
-//            try {
-//                OutputStream fOut = new FileOutputStream(imageFile);
-//                image.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
-//                fOut.close();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//
-//            // Add the image to the system gallery
-//            galleryAddPic(savedImagePath);
-//            Toast.makeText(context, "IMAGE SAVED", Toast.LENGTH_LONG).show();
-//        }
-//        return savedImagePath;
-//    }
-//
-//    private void galleryAddPic(String imagePath) {
-//        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-//        File f = new File(imagePath);
-//        Uri contentUri = Uri.fromFile(f);
-//        mediaScanIntent.setData(contentUri);
-//        context.sendBroadcast(mediaScanIntent);
-//    }
+
 }

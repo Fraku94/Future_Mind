@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
     private NetworkInfo netInfo;
 
-    private Bitmap theBitmap = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         swipeRefreshLayout.setRefreshing(true);
 
         databaseData = new DatabaseHandlerData(this);
+        databaseSettings = new DatabaseHandlerSettings(this);
 
         //Ustawienie RecycleView
         mRecyclerView = findViewById(R.id.recyclerView);
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
 
-        //Ustawienie Adaptera oraz LayoutMenagera. Uzycie Contextu fragmentu
+        //Ustawienie Adaptera oraz LayoutMenagera.
         mDataLayoutMenager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mDataLayoutMenager);
         mDataAdapter = new DataAdapter(getData(),getApplicationContext());
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         isOnline();
         new GetCategory().execute();
         //Sprawdzenie daty odswieżenia
-       // getDate();
+       getDate();
 
         //Inicjacja odswiezania
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -154,10 +154,18 @@ public class MainActivity extends AppCompatActivity {
             } else {
 
                 // too early
-                Cursor res = databaseData.getAllData();
 
-                while (res.moveToNext()) {
-                    DataObject object = new DataObject(res.getString(0), res.getString(1), res.getString(2), res.getString(3), res.getString(4), res.getString(5));
+                Cursor resDataSQL = databaseData.getData();
+
+                Log.e("********resDataSQL", "resDataSQL        " + resDataSQL.getCount());
+
+                Cursor resData = databaseData.getAllData();
+
+                Log.e("********resData", "resData         " + resData.getCount());
+
+                while (resData.moveToNext()) {
+                    DataObject object = new DataObject(resData.getString(0), resData.getString(1),
+                            resData.getString(2), resData.getString(3), resData.getString(4), resData.getString(5));
                     //Metoda dodawania do Objektu
                     resoult.add(object);
                 }
@@ -257,10 +265,16 @@ public class MainActivity extends AppCompatActivity {
                             Log.e("wczytanie", "Title:   " + Title);
                             Log.e("wczytanie", "-----------------------------------------------------" );
 
-                            //Dodanie zmeinnych do Obiektu (nazwy musza byc takie same jak w Objekcie
                             DataObject object = new DataObject(OrderID, ModificationDate, Description, Title, ImageUrl, WebUrl);
+                            databaseData.addData(object);
 
-                            databaseData.addData(new DataObject(OrderID, ModificationDate, Description, Title, ImageUrl, WebUrl));
+                            Cursor resData = databaseData.getAllData();
+
+                            Log.e("licza -----danych", "DataObject:   " + resData.getString(0));
+                            //Dodanie zmeinnych do Obiektu (nazwy musza byc takie same jak w Objekcie
+
+
+
 
                             //Metoda dodawania do Objektu
                             resoult.add(object);

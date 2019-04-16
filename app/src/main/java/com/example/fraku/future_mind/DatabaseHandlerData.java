@@ -33,14 +33,14 @@ public class DatabaseHandlerData extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_QUESTION_TABLE = "CREATE TABLE " + TABLE_DATA + "("
-                + KEY_ID + " TEXT,"
-                + KEY_MODIFICATION_DATE + " TEXT,"
-                + KEY_DESCRIPTION + " TEXT,"
-                + KEY_TITLE + " TEXT,"
-                + KEY_IMAGE_URL + " TEXT,"
+        String CREATE_DATA_TABLE = "CREATE TABLE " + TABLE_DATA + "("
+                + KEY_ID + " TEXT, "
+                + KEY_MODIFICATION_DATE + " TEXT, "
+                + KEY_DESCRIPTION + " TEXT, "
+                + KEY_TITLE + " TEXT, "
+                + KEY_IMAGE_URL + " TEXT, "
                 + KEY_WEB_URL + " TEXT" + ")";
-        db.execSQL(CREATE_QUESTION_TABLE);
+        db.execSQL(CREATE_DATA_TABLE);
     }
 
     @Override
@@ -56,8 +56,11 @@ public class DatabaseHandlerData extends SQLiteOpenHelper {
     //Adding new contact
     public void addData(DataObject DataObject) {
         SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DATA);
 
+        onCreate(db);
         ContentValues values = new ContentValues();
+
         values.put(KEY_ID, DataObject.getOrderId());
         values.put(KEY_MODIFICATION_DATE, DataObject.getModificationDate());
         values.put(KEY_DESCRIPTION, DataObject.getDescription());
@@ -69,17 +72,16 @@ public class DatabaseHandlerData extends SQLiteOpenHelper {
         db.insert(TABLE_DATA, null, values);
         db.close();
     }
-
     public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor AllData = db.rawQuery("SELECT * FROM " + TABLE_DATA, null);
         return AllData;
     }
 
-    public Cursor getData(String Id) {
+    public Cursor getData() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursorData = db.rawQuery(" SELECT " + KEY_WEB_URL + " FROM "
-                + TABLE_DATA + " WHERE " + KEY_ID + " IS " + Id , null);
+                + TABLE_DATA, null);
 
         return cursorData;
     }
