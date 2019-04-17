@@ -1,9 +1,7 @@
 package com.example.fraku.future_mind;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -11,26 +9,18 @@ public class WebViewActivity extends AppCompatActivity {
 
     private String TAG = WebViewActivity.class.getSimpleName();
 
-    private  String WebViewUrl, Id;
+    private  String WebViewUrl;
 
     private WebView webView;
-
-
-    private DatabaseHandlerData databaseData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
 
-        databaseData = new DatabaseHandlerData(this);
-
-        webView = findViewById(R.id.mWebView);
-
-        Log.e("WebViewActivity", "WebViewActivity:   ******************************  " );
         WebViewUrl = getIntent().getExtras().getString("webUrl");
 
-
+        webView = findViewById(R.id.mWebView);
         webView.clearCache(true);
         webView.clearHistory();
         webView.getSettings().setJavaScriptEnabled(true);
@@ -42,7 +32,5 @@ public class WebViewActivity extends AppCompatActivity {
                 return false;
             }
         });
-
     }
-
 }

@@ -59,6 +59,4 @@ public class DataObject {
     public void setWebUrl(String WebUrl) {
         WebUrl = WebUrl;
     }
-
-
 }

@@ -13,11 +13,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.webkit.WebView;
 import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -52,13 +50,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mTwoPane = false;
 
-
         //Przypisanie funkicji odswiezania
         swipeRefreshLayout = findViewById(R.id.swipeContainer);
         if (swipeRefreshLayout.getTag().equals("s")){
             mTwoPane = true;
-            Log.e("swipeRefreshLayout", "swipeRefreshLayout:   " + mTwoPane);
-            Log.e("swipeRefreshLayout", "TAG:   " + swipeRefreshLayout.getTag());
         }
 
         swipeRefreshLayout.setRefreshing(true);
@@ -70,14 +65,11 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(true);
-
-
         mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
 
         //Ustawienie Adaptera oraz LayoutMenagera.
         mDataLayoutMenager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mDataLayoutMenager);
-
         mDataAdapter = new DataAdapter(MainActivity.this,getData(), mTwoPane);
         mRecyclerView.setAdapter(mDataAdapter);
 
@@ -109,11 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
-
-
 
     private void getDate() {
 
@@ -123,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
         cal.clear(Calendar.MINUTE);
         cal.clear(Calendar.SECOND);
         cal.clear(Calendar.MILLISECOND);
-
         long now = cal.getTimeInMillis();
 
         Cursor resDate = databaseSettings.getDateSettings();
@@ -131,15 +118,10 @@ public class MainActivity extends AppCompatActivity {
         if (resDate.getCount() == 0){
 
             databaseSettings.addSettings(now);
-
             isOnline();
-
             if (netInfo != null){
-
                 new GetCategory().execute();
-
             }else{
-
                 Toast.makeText(MainActivity.this,"Brak połączenia z interentem, włącz internet i zresetuj aplikacje",Toast.LENGTH_LONG).show();
             }
         }else if(resDate.moveToPosition(0)) {
@@ -158,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
                     new GetCategory().execute();
 
                 }else{
-
                     Toast.makeText(MainActivity.this,"Brak połączenia z interentem, włącz internet i zresetuj aplikacje",Toast.LENGTH_LONG).show();
                 }
 
@@ -174,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
                     //Metoda dodawania do Objektu
                     resoult.add(object);
                 }
-
                 swipeRefreshLayout.setRefreshing(false);
             }
         }
@@ -187,7 +167,6 @@ public class MainActivity extends AppCompatActivity {
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
-
     //Czyszczenie
     private void clear() {
         int size = this.resoult.size();
@@ -197,7 +176,6 @@ public class MainActivity extends AppCompatActivity {
 
     //Przeslanie do Adaptera Rezultatow
     private ArrayList<DataObject> resoult = new ArrayList<DataObject>();
-
 
     private List<DataObject> getData() {
         // new GetCategory().execute();
@@ -209,7 +187,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
         }
 
         @Override
@@ -220,7 +197,6 @@ public class MainActivity extends AppCompatActivity {
                 databaseData.onClear();
 
                 HttpHandler sh = new HttpHandler();
-
                 //Link
                 String url = "https://www.futuremind.com/recruitment-task";
                 String jsonStr = sh.makeServiceCall(url);
@@ -236,19 +212,14 @@ public class MainActivity extends AppCompatActivity {
                         for (int i = 0; i < Data.length(); i++) {
                             JSONObject c = Data.getJSONObject(i);
 
-                            //Description
                             Description = c.getString("description");
 
-                            //ImageUrl
                             ImageUrl = c.getString("image_url");
 
-                            //ModificationDate
                             ModificationDate = c.getString("modificationDate");
 
-                            //ID
                             OrderID = c.getString("orderId");
 
-                            //Title
                             Title = c.getString("title");
 
                             List<String> extractedUrls = extractUrls(Description);
@@ -272,12 +243,10 @@ public class MainActivity extends AppCompatActivity {
 
                             DataObject object = new DataObject(OrderID, ModificationDate, Description, Title, ImageUrl, WebUrl);
 
-
                             databaseData.addData(new DataObject(OrderID, ModificationDate, Description, Title, ImageUrl, WebUrl));
 
                             //Metoda dodawania do Objektu
                             resoult.add(object);
-
                         }
                     } catch (final JSONException e) {
                         Log.e(TAG, "Json parsing error: " + e.getMessage());
@@ -289,9 +258,7 @@ public class MainActivity extends AppCompatActivity {
                                         Toast.LENGTH_LONG).show();
                             }
                         });
-
                     }
-
                 } else {
                     Log.e(TAG, "Couldn't get json from server.");
                     runOnUiThread(new Runnable() {
@@ -303,10 +270,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                 }
-
-
             }else if (netInfo == null){
-
 
                 Cursor res = databaseData.getAllData();
 
@@ -317,7 +281,6 @@ public class MainActivity extends AppCompatActivity {
                     resoult.add(object);
                 }
             }
-
             return null;
         }
 
@@ -333,7 +296,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     public static List<String> extractUrls(String text)
     {
         List<String> containedUrls = new ArrayList<String>();
@@ -348,10 +310,7 @@ public class MainActivity extends AppCompatActivity {
                     urlMatcher.end(0)));
 
             Log.e("containedUrls", "containedUrls:   " + containedUrls + "  "+ containedUrls.toString().length());
-
-
         }
-
         return containedUrls;
     }
 }

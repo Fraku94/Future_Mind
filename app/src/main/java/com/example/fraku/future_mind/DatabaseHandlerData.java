@@ -75,8 +75,6 @@ public class DatabaseHandlerData extends SQLiteOpenHelper {
         return AllData;
     }
 
-
-
     public void onClear() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_DATA);

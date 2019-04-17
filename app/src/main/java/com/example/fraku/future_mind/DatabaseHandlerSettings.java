@@ -58,13 +58,6 @@ public class DatabaseHandlerSettings extends SQLiteOpenHelper {
         db.close();
     }
 
-    public Cursor getAllSettingsData() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor AllSettings = db.rawQuery("SELECT * FROM " + TABLE_SETTINGS, null);
-
-        return AllSettings;
-    }
-
     public Cursor getDateSettings() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor DateSettings = db.rawQuery(" SELECT " + KEY_DATE + " FROM "
