@@ -42,6 +42,11 @@ public class DataAdapter extends RecyclerView.Adapter<DataViewHolder>{
     @Override
     public void onBindViewHolder(final DataViewHolder holder,final int position)  {
 
+
+
+        holder.mTwoPane = mTwoPane;
+        holder.mainActivity = mParentActivity;
+
         Glide.with(mParentActivity)
                 .load(DataList.get(position).getImageUrl())
                 .asBitmap().placeholder(R.mipmap.ic_load)
@@ -53,8 +58,6 @@ public class DataAdapter extends RecyclerView.Adapter<DataViewHolder>{
                     }
                 });
 
-        holder.mTwoPane = mTwoPane;
-        holder.mainActivity = mParentActivity;
         holder.mWebViewUrl = DataList.get(position).getWebUrl();
         holder.mTitle.setText(DataList.get(position).getTitle());
         holder.mDescription.setText(DataList.get(position).getDescription());
