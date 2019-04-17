@@ -305,11 +305,9 @@ public class MainActivity extends AppCompatActivity {
 
         while (urlMatcher.find())
         {
-            Log.e("containedUrls", "containedUrls:   " + containedUrls);
             containedUrls.add(text.substring(urlMatcher.start(0),
                     urlMatcher.end(0)));
 
-            Log.e("containedUrls", "containedUrls:   " + containedUrls + "  "+ containedUrls.toString().length());
         }
         return containedUrls;
     }

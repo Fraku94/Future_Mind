@@ -1,7 +1,9 @@
 package com.example.fraku.future_mind;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +42,17 @@ public class DataAdapter extends RecyclerView.Adapter<DataViewHolder>{
     @Override
     public void onBindViewHolder(final DataViewHolder holder,final int position)  {
 
+        Glide.with(mParentActivity)
+                .load(DataList.get(position).getImageUrl())
+                .asBitmap().placeholder(R.mipmap.ic_load)
+                .into(new SimpleTarget<Bitmap>(100,100) {
+                    @Override
+                    public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation){
+                        Log.e("Glide", "Glide:   " + DataList.get(position).getImageUrl());
+                        holder.mImage.setImageBitmap(resource);
+                    }
+                });
+
         holder.mTwoPane = mTwoPane;
         holder.mainActivity = mParentActivity;
         holder.mWebViewUrl = DataList.get(position).getWebUrl();
@@ -47,16 +60,6 @@ public class DataAdapter extends RecyclerView.Adapter<DataViewHolder>{
         holder.mDescription.setText(DataList.get(position).getDescription());
         holder.mModificationDate.setText(DataList.get(position).getModificationDate());
 
-       Glide.with(mParentActivity)
-                .load(DataList.get(position).getImageUrl())
-                .asBitmap()
-                .into(new SimpleTarget<Bitmap>(100,100) {
-                    @Override
-                    public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation){
-
-                        holder.mImage.setImageBitmap(resource);
-                    }
-                });
     }
 
     @Override
