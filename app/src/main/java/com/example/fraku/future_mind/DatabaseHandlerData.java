@@ -17,7 +17,7 @@ public class DatabaseHandlerData extends SQLiteOpenHelper {
     //Database Name
     private static final String DATABASE_NAME = "DataManager";
     //Database table name
-    private static final String TABLE_DATA = "data";
+    private static final String TABLE_DATA = "datalist";
 
     // Contacts Table Columns name
     private static final String KEY_ID = "order_id";
@@ -56,9 +56,6 @@ public class DatabaseHandlerData extends SQLiteOpenHelper {
     //Adding new contact
     public void addData(DataObject DataObject) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DATA);
-
-        onCreate(db);
         ContentValues values = new ContentValues();
 
         values.put(KEY_ID, DataObject.getOrderId());
@@ -78,13 +75,7 @@ public class DatabaseHandlerData extends SQLiteOpenHelper {
         return AllData;
     }
 
-    public Cursor getData() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursorData = db.rawQuery(" SELECT " + KEY_WEB_URL + " FROM "
-                + TABLE_DATA, null);
 
-        return cursorData;
-    }
 
     public void onClear() {
         SQLiteDatabase db = this.getWritableDatabase();

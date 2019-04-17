@@ -3,7 +3,6 @@ package com.example.fraku.future_mind;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +17,19 @@ import java.util.List;
 
 public class DataAdapter extends RecyclerView.Adapter<DataViewHolder>{
 
+    private final MainActivity mParentActivity;
     private List<DataObject> DataList;
-    private Context context;
+    private final boolean mTwoPane;
+
+
+
 
 
     //Przypisanie Obiektów do adaptera
-    public DataAdapter(List<DataObject> DataList, Context context){
+    public DataAdapter(MainActivity mParentActivity, List<DataObject> DataList, boolean mTwoPane){
         this.DataList = DataList;
-        this.context = context;
+        this.mParentActivity = mParentActivity;
+        this.mTwoPane = mTwoPane;
     }
 
     @Override
@@ -47,18 +51,15 @@ public class DataAdapter extends RecyclerView.Adapter<DataViewHolder>{
     @Override
     public void onBindViewHolder(final DataViewHolder holder,final int position)  {
 
-
-        holder.mId = DataList.get(position).getOrderId();
+        holder.mTwoPane = mTwoPane;
+        holder.mainActivity = mParentActivity;
         holder.mWebViewUrl = DataList.get(position).getWebUrl();
         holder.mTitle.setText(DataList.get(position).getTitle());
         holder.mDescription.setText(DataList.get(position).getDescription());
         holder.mModificationDate.setText(DataList.get(position).getModificationDate());
 
-        Log.e("get(position)", "get(position):   " + DataList.get(position).getImageUrl());
-        Log.e("get(position)", "get(DataList.get(position).getTitle()):   " + DataList.get(position).getTitle());
-
        // holder.mImage.setImageBitmap(new RetrieveFeedTask(url).execute());
-       Glide.with(context)
+       Glide.with(mParentActivity)
                 .load(DataList.get(position).getImageUrl())
                 .asBitmap()
                 .into(new SimpleTarget<Bitmap>(100,100) {

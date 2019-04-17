@@ -2,7 +2,6 @@ package com.example.fraku.future_mind;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -12,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.webkit.WebView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mDataAdapter;
     private RecyclerView.LayoutManager mDataLayoutMenager;
+    private WebView mWebView;
+    private boolean mTwoPane;
 
     private DatabaseHandlerData databaseData;
     private DatabaseHandlerSettings databaseSettings;
@@ -48,9 +50,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mTwoPane = false;
+
 
         //Przypisanie funkicji odswiezania
         swipeRefreshLayout = findViewById(R.id.swipeContainer);
+        if (swipeRefreshLayout.getTag().equals("s")){
+            mTwoPane = true;
+            Log.e("swipeRefreshLayout", "swipeRefreshLayout:   " + mTwoPane);
+            Log.e("swipeRefreshLayout", "TAG:   " + swipeRefreshLayout.getTag());
+        }
 
         swipeRefreshLayout.setRefreshing(true);
 
@@ -68,14 +77,15 @@ public class MainActivity extends AppCompatActivity {
         //Ustawienie Adaptera oraz LayoutMenagera.
         mDataLayoutMenager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mDataLayoutMenager);
-        mDataAdapter = new DataAdapter(getData(),getApplicationContext());
+
+        mDataAdapter = new DataAdapter(MainActivity.this,getData(), mTwoPane);
         mRecyclerView.setAdapter(mDataAdapter);
 
         //Sprawdzenie dostępu do internetu
         isOnline();
-        new GetCategory().execute();
+
         //Sprawdzenie daty odswieżenia
-       getDate();
+        getDate();
 
         //Inicjacja odswiezania
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -89,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                     clear();
                     new GetCategory().execute();
 
-                    mDataAdapter = new DataAdapter(getData(),getApplicationContext());
+                    mDataAdapter = new DataAdapter(MainActivity.this,getData(), mTwoPane);
                     mRecyclerView.setAdapter(mDataAdapter);
 
                 }else if (netInfo == null){
@@ -102,6 +112,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
 
     private void getDate() {
 
@@ -120,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
 
             databaseSettings.addSettings(now);
 
-            Log.e("Data2", "now " + now);
             isOnline();
 
             if (netInfo != null){
@@ -155,13 +166,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // too early
 
-                Cursor resDataSQL = databaseData.getData();
-
-                Log.e("********resDataSQL", "resDataSQL        " + resDataSQL.getCount());
-
                 Cursor resData = databaseData.getAllData();
-
-                Log.e("********resData", "resData         " + resData.getCount());
 
                 while (resData.moveToNext()) {
                     DataObject object = new DataObject(resData.getString(0), resData.getString(1),
@@ -266,15 +271,9 @@ public class MainActivity extends AppCompatActivity {
                             Log.e("wczytanie", "-----------------------------------------------------" );
 
                             DataObject object = new DataObject(OrderID, ModificationDate, Description, Title, ImageUrl, WebUrl);
-                            databaseData.addData(object);
-
-                            Cursor resData = databaseData.getAllData();
-
-                            Log.e("licza -----danych", "DataObject:   " + resData.getString(0));
-                            //Dodanie zmeinnych do Obiektu (nazwy musza byc takie same jak w Objekcie
 
 
-
+                            databaseData.addData(new DataObject(OrderID, ModificationDate, Description, Title, ImageUrl, WebUrl));
 
                             //Metoda dodawania do Objektu
                             resoult.add(object);

@@ -3,6 +3,7 @@ package com.example.fraku.future_mind;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -26,7 +27,7 @@ public class WebViewActivity extends AppCompatActivity {
 
         webView = findViewById(R.id.mWebView);
 
-
+        Log.e("WebViewActivity", "WebViewActivity:   ******************************  " );
         WebViewUrl = getIntent().getExtras().getString("webUrl");
 
 
