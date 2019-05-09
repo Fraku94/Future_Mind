@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 public class WebViewFragment extends Fragment {
 
@@ -15,6 +16,7 @@ public class WebViewFragment extends Fragment {
 
     private  String WebViewUrl;
     private WebView webView;
+    private ProgressBar progressBar;
 
     public WebViewFragment() {
     }
@@ -38,7 +40,9 @@ public class WebViewFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.item_webview, container, false);
         // Show the dummy content as text in a TextView.
         webView = rootView.findViewById(R.id.WebViewMD);
+        progressBar = rootView.findViewById(R.id.progressMD);
         if (webView != null) {
+            progressBar.setVisibility(View.VISIBLE);
             webView.clearCache(true);
             webView.clearHistory();
             webView.getSettings().setJavaScriptEnabled(true);
@@ -49,6 +53,12 @@ public class WebViewFragment extends Fragment {
                     viewx.loadUrl(urlx);
                     return false;
                 }
+
+            public void onPageFinished(WebView view, String url) {
+
+                progressBar.setVisibility(View.GONE);
+
+            }
             });
         }
         return rootView;

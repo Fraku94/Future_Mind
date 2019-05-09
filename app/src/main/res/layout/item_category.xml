@@ -8,54 +8,54 @@
     android:minHeight="@dimen/list_item_height"
     android:background="@color/white">
 
-        <ImageView
-            android:id="@+id/Image"
-            android:layout_width="@dimen/image"
-            android:layout_height="@dimen/image"
-            android:fitsSystemWindows="true"
-            android:scaleType="centerCrop"/>
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:visibility="visible"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/image"
-            android:orientation="vertical"
-            android:layout_toRightOf="@+id/Image"
-            tools:background="@color/white">
+    <ImageView
+        android:id="@+id/Image"
+        android:scaleType="fitXY"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"/>
 
-                <TextView
-                    android:id="@+id/Title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="center"
-                    tools:hint="@string/title"
-                    android:textStyle="normal"
-                    android:textAppearance="?android:textAppearanceListItemSmall"
-                    android:textColor="@android:color/black"/>
+    <TextView
+        android:id="@+id/Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dip"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="75dp"
+        android:background="#AA000000"
+        android:padding="12dip"
+        android:text="SomeText"
+        android:textColor="#ffffffff" />
 
-                <TextView
-                    android:id="@+id/ModificationDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    tools:hint="@string/ModificationDate"
-                    android:textStyle="normal"
-                    android:textAppearance="?android:textAppearanceListItemSmall"
-                    android:textColor="@android:color/black"/>
 
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/Image">
+            android:layout_below="@id/Image"
+            android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/ModificationDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    tools:hint="@string/ModificationDate"
+                    android:textStyle="normal"
+                    android:textAlignment="center"
+                    android:textAppearance="?android:textAppearanceListItemSmall"
+                    android:textColor="@android:color/black"/>
                 <TextView
                     android:id="@+id/Description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:gravity="center"
+                    android:textAlignment="center"
                     android:textAppearance="?android:textAppearanceListItemSmall"
                     android:textColor="@android:color/black"
                     android:textStyle="normal"
