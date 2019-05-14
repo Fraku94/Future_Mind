@@ -1,4 +1,4 @@
-package com.example.fraku.future_mind;
+package com.example.fraku.future_mind.Adapter;
 
 public class DataObject {
 

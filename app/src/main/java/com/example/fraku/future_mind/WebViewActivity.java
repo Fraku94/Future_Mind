@@ -42,7 +42,6 @@ public class WebViewActivity extends AppCompatActivity {
 
                                      public void onPageFinished(WebView view, String url) {
                                              progressBar.setVisibility(View.GONE);
-
                                      }
                                  }
         );

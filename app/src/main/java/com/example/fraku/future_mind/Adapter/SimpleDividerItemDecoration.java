@@ -1,10 +1,12 @@
-package com.example.fraku.future_mind;
+package com.example.fraku.future_mind.Adapter;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.example.fraku.future_mind.R;
 
 public class SimpleDividerItemDecoration extends RecyclerView.ItemDecoration {
     private Drawable mDivider;

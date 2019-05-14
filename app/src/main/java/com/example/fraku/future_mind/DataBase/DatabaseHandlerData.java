@@ -1,4 +1,4 @@
-package com.example.fraku.future_mind;
+package com.example.fraku.future_mind.DataBase;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.fraku.future_mind.Adapter.DataObject;
 
 
 public class DatabaseHandlerData extends SQLiteOpenHelper {

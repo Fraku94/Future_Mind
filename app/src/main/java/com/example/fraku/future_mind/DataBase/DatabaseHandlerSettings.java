@@ -1,4 +1,4 @@
-package com.example.fraku.future_mind;
+package com.example.fraku.future_mind.DataBase;
 
 import android.content.ContentValues;
 import android.content.Context;

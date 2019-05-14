@@ -2,5 +2,9 @@
 <resources>
     <dimen name="image">150dp</dimen>
     <dimen name="list_item_height">88dp</dimen>
-    <dimen name="item">300dp</dimen>
+    <dimen name="item">50dp</dimen>
+    <dimen name="item_category">300dp</dimen>
+    <dimen name="ModificationDate">10dp</dimen>
+    <dimen name="Title">15dp</dimen>
+    <dimen name="padding">5dp</dimen>
 </resources>

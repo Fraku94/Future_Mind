@@ -1,66 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="@dimen/list_item_height"
-    android:background="@color/white">
+    android:layout_height="@dimen/item_category"
+    android:paddingLeft="@dimen/padding"
+    android:paddingRight="@dimen/padding"
+    android:orientation="horizontal"
+    android:gravity="left">
 
-    <ProgressBar
-        android:id="@+id/progress"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:visibility="visible"/>
+    <RelativeLayout
+        android:layout_width="@dimen/image"
+        android:layout_height="@dimen/image">
 
-    <ImageView
-        android:id="@+id/Image"
-        android:scaleType="fitXY"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"/>
 
-    <TextView
-        android:id="@+id/Title"
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"/>
+
+        <ImageView
+            android:id="@+id/Image"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_width="@dimen/image"
+            android:layout_height="@dimen/image"/>
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dip"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="75dp"
-        android:background="#AA000000"
-        android:padding="12dip"
-        android:text="SomeText"
-        android:textColor="#ffffffff" />
+        android:layout_height="@dimen/image">
 
+        <TextView
+            android:id="@+id/Title"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:textSize="@dimen/Title"
+            android:text="@string/title"
+            android:textColor="@color/title" />
 
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/ModificationDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/Image"
-            android:orientation="vertical">
+            tools:hint="@string/ModificationDate"
+            android:textStyle="normal"
+            android:textAlignment="center"
+            android:textSize="@dimen/ModificationDate"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"/>
 
-                <TextView
-                    android:id="@+id/ModificationDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    tools:hint="@string/ModificationDate"
-                    android:textStyle="normal"
-                    android:textAlignment="center"
-                    android:textAppearance="?android:textAppearanceListItemSmall"
-                    android:textColor="@android:color/black"/>
-                <TextView
-                    android:id="@+id/Description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:textAlignment="center"
-                    android:textAppearance="?android:textAppearanceListItemSmall"
-                    android:textColor="@android:color/black"
-                    android:textStyle="normal"
-                    tools:hint="@string/Description" />
-        </LinearLayout>
 
-</RelativeLayout>
+    </RelativeLayout>
+
+
+
+</LinearLayout>
 

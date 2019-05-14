@@ -13,6 +13,13 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.webkit.WebView;
 import android.widget.Toast;
+
+import com.example.fraku.future_mind.Adapter.DataAdapter;
+import com.example.fraku.future_mind.Adapter.DataObject;
+import com.example.fraku.future_mind.Adapter.SimpleDividerItemDecoration;
+import com.example.fraku.future_mind.DataBase.DatabaseHandlerData;
+import com.example.fraku.future_mind.DataBase.DatabaseHandlerSettings;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -76,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         //Sprawdzenie dostępu do internetu
         isOnline();
 
-        //Sprawdzenie daty odswieżenia
+        //Sprawdzenie daty odswieżenia. Odswiezanie dopiero po 24h lub na wymuszenie.
         getDate();
 
         //Inicjacja odswiezania
@@ -145,8 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
             } else {
 
-                // too early
-
+                //za wczesnie
                 Cursor resData = databaseData.getAllData();
 
                 while (resData.moveToNext()) {
